@@ -1,0 +1,14 @@
+conventional "nvidia-smi" is not working on Tegra. But "tegrastats" provides you with similar info includes RAM, BUFFER, CPU, EMC, AVP, VDE, and GR3D:
+
+sudo ./tegrastats
+
+You have four CPUs on Jetson TK1 so you see cpu [51%, 96%, off, off] which provides the CPU usage.
+GR3D explors the persentage usage and instance GPU frequency, for instance, 64%@324
+
+or you have an option to check the log file as well:
+
+cat /sys/devices/platform/host1x/gk20a.0/load
+
+or monitor it persistently, for instance every 1s, by:
+
+watch -n 1 cat /sys/devices/platform/host1x/gk20a.0/load
