@@ -1,0 +1,61 @@
+1. Java8
+2. Dependencies
+3. Protobuf
+    3.1. Fix the ./autogen.sh
+4. Bazel
+5. TensorFlow
+
+1. Java
+
+$ add-apt-repository ppa:webupd8team/java
+$ apt-get update
+$ apt-get install oracle-java8-installer
+
+
+
+2. Dependencies
+
+$ apt-get install git zip unzip autoconf automake libtool curl zlib1g-dev
+
+
+
+3. Protobuf
+
+$ git clone https://github.com/google/protobuf.git
+$ cd protobuf
+$ ./autogen.sh (if you face "cannot find zipfile ... " go for step 3.1.)
+$ ./configure --prefix=/usr
+$ make -j 4
+$ make install
+
+3.1. Fix the ./autogen.sh
+If you face "cannot find zipfile directory in one of gmock-1.7.0.zip" you need to do alittile more struggle around
+# cd /tmp
+# git clone -b v1.0.0 --recursive https://github.com/grpc/grpc.git
+# cd grpc/third_party/protobuf
+# curl -o- https://github.com/google/protobuf/commit/bba446bbf2ac7b0b9923d4eb07d5acd0665a8cf0.diff | patch -p1
+# ./autogen.sh
+# ./configure --prefix=/usr
+# make -j 4
+# make install
+# cd ../..
+# ldconfig
+# make -j 4
+# make install
+# cd /tmp
+# rm -rf /tmp/grpc
+
+Check protoc
+# protoc --version
+libprotoc 3.0.0
+
+Maven
+
+sudo apt-get install maven
+mvn package
+
+
+https://github.com/Lisandro79/JetsonCaffe/wiki/Install-Tensorflow-on-TK1
+https://github.com/grpc/grpc/issues/7952
+http://cudamusing.blogspot.com/2015/11/building-tensorflow-for-jetson-tk1.html
+
